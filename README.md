@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/brandons-logo.png" alt="Brandon IT Professional logo" width="155">
+  <img src="assets/footer-logo.png" alt="Brandon IT Professional logo" width="155">
 </p>
 
 <h1 align="center">Cisco ISR 1100 — Secure Data Sanitization &amp; IOS XE Firmware Restoration Infrastructure Project</h1>
