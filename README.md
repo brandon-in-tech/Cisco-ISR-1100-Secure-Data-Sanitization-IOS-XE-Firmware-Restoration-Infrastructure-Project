@@ -132,7 +132,7 @@ rommon 1 > confreg 0x2142
 rommon 2 > reset
 Technical explanation. confreg 0x2142 changes the configuration-register setting so the normal startup configuration is ignored during the subsequent boot. It is commonly used when access to the stored configuration must be bypassed in an authorized recovery workflow. reset restarts the platform from the ROM monitor. ROMMON runs below the normal IOS XE command environment, so commands and prompts differ from those used once IOS starts.
 
-On a Cisco C1111, boot monitor capabilities and prompts can vary by ROMMON release. The literal prompt number (rommon 1 >, rommon 2 >) is a command counter, not a required number you type.`
+On a Cisco C1111, boot monitor capabilities and prompts can vary by ROMMON release. The literal prompt number (rommon 1 >, rommon 2 >) is a command counter, not a required number you type.
 
 Screenshot — Step 01
 
@@ -156,7 +156,7 @@ Router# terminal length 0
 Router# show version
 Technical explanation. terminal length 0 disables page-at-a-time output for the current terminal session, making it easier to capture complete diagnostic commands. show version reports platform and software details including IOS XE release information, the system image, uptime, and boot history.
 
-The observed device is a Cisco C1111-8PWB, within the Cisco ISR 1100 family, and the visible release is IOS XE 16.09.05. This is important because command availability varies between IOS, IOS XE, ROMMON versions, licenses, and configured modes.`
+The observed device is a Cisco C1111-8PWB, within the Cisco ISR 1100 family, and the visible release is IOS XE 16.09.05. This is important because command availability varies between IOS, IOS XE, ROMMON versions, licenses, and configured modes.
 
 Screenshot — Step 02
 
@@ -179,7 +179,7 @@ Commands visible in or associated with this capture
 Router# show inventory
 Technical explanation. show inventory enumerates hardware records, generally including PID (product identifier), VID (version identifier), SN (serial number), and descriptive names for modules and components. The PID helps establish that the device is a C1111-8PWB; individual module entries indicate what else may be installed.
 
-Inventory matters for sanitization because a chassis can contain more than one storage-bearing subsystem. A router's main IOS XE environment is not necessarily the only component that may retain configuration.`
+Inventory matters for sanitization because a chassis can contain more than one storage-bearing subsystem. A router's main IOS XE environment is not necessarily the only component that may retain configuration.
 
 Screenshot — Step 03
 
@@ -202,7 +202,7 @@ Commands visible in or associated with this capture
 Router# show platform
 Technical explanation. show platform provides a view of the C1111's installed slots and system elements, with state information such as ok or active. In this evidence, the output includes an ISR-AP1100AC-B wireless module in slot 0/2, in addition to router and Ethernet-related components.
 
-This matters because an embedded access point may have its own software, storage, and configuration lifecycle. Resetting the host router's startup configuration or formatting the host bootflash does not, by itself, prove that the AP was independently sanitized.`
+This matters because an embedded access point may have its own software, storage, and configuration lifecycle. Resetting the host router's startup configuration or formatting the host bootflash does not, by itself, prove that the AP was independently sanitized.
 
 Screenshot — Step 04
 
@@ -225,7 +225,7 @@ Commands visible in or associated with this capture
 Router# show ip interface brief
 Technical explanation. show ip interface brief condenses the router's interface configuration into a useful table: interface name, IP address, method, administrative status, and line-protocol state.
 
-Key distinctions: administratively down means an interface has been intentionally shut down; down/down generally indicates it is not operational at the physical/protocol level; up/up means the interface and line protocol report operational. unassigned means no IPv4 address is displayed for that interface. These fields do not require an internet connection to inspect.`
+Key distinctions: administratively down means an interface has been intentionally shut down; down/down generally indicates it is not operational at the physical/protocol level; up/up means the interface and line protocol report operational. unassigned means no IPv4 address is displayed for that interface. These fields do not require an internet connection to inspect.
 
 Screenshot — Step 05
 
@@ -248,7 +248,7 @@ Commands visible in or associated with this capture
 Router# show interfaces
 Technical explanation. show interfaces exposes more detail than show ip interface brief: media type, MTU, bandwidth reporting, operational status, interface counters, traffic rates, and error measurements. It may print hardware/MAC addresses, which is why the relevant identifiers were redacted.
 
-A common Ethernet MTU of 1500 bytes describes the usual maximum Layer 3 payload on an untagged Ethernet network. Counters such as input errors, CRC errors, drops, and interface resets can help distinguish cabling, duplex, congestion, and hardware issues. However, a single snapshot cannot establish whether counters are actively increasing.`
+A common Ethernet MTU of 1500 bytes describes the usual maximum Layer 3 payload on an untagged Ethernet network. Counters such as input errors, CRC errors, drops, and interface resets can help distinguish cabling, duplex, congestion, and hardware issues. However, a single snapshot cannot establish whether counters are actively increasing.
 
 Screenshot — Step 06
 
@@ -271,7 +271,7 @@ Commands visible in or associated with this capture
 Router# show ip route
 Technical explanation. show ip route lists routes currently installed in the IPv4 routing table. Route source codes help identify how routes were learned: C (connected), L (local), S (static), O (OSPF), and others. Gateway of last resort is not set means the visible IPv4 table has no installed default route.
 
-A routing table can be empty if there are no active Layer 3 networks or learned paths. An empty active table does not prove there are no saved configurations, and it does not guarantee that every attached module is defaulted.`
+A routing table can be empty if there are no active Layer 3 networks or learned paths. An empty active table does not prove there are no saved configurations, and it does not guarantee that every attached module is defaulted.
 
 Screenshot — Step 07
 
@@ -294,7 +294,7 @@ Commands visible in or associated with this capture
 Router# show running-config
 Technical explanation. show running-config prints the configuration currently active in RAM. It can contain interface descriptions, IP addresses, routing policies, local accounts, access restrictions, service settings, and some secrets in encoded or encrypted form.
 
-Running configuration and startup configuration are not identical concepts. A startup configuration is the saved configuration used at boot; the running configuration reflects the current session. Changes can be active without having been saved, and a recovery boot may ignore an existing startup configuration without deleting it.`
+Running configuration and startup configuration are not identical concepts. A startup configuration is the saved configuration used at boot; the running configuration reflects the current session. Changes can be active without having been saved, and a recovery boot may ignore an existing startup configuration without deleting it.
 
 Screenshot — Step 08
 
@@ -317,7 +317,7 @@ Commands visible in or associated with this capture
 Router# dir all
 Technical explanation. dir all requests a broad directory listing across accessible file systems. Cisco IOS XE platforms can expose multiple prefixes, including transient operating-system file systems and persistent flash-based storage. Different namespaces may have different purposes and access rules.
 
-It is important to distinguish file discovery from data sanitization. Seeing a directory entry establishes only that the device reports it; the listing does not prove the contents were erased or the underlying storage blocks were irrecoverably cleared.`
+It is important to distinguish file discovery from data sanitization. Seeing a directory entry establishes only that the device reports it; the listing does not prove the contents were erased or the underlying storage blocks were irrecoverably cleared.
 
 Screenshot — Step 09
 
@@ -345,7 +345,7 @@ Technical explanation. dir bootflash: lists the primary boot storage, allowing i
 
 In the screenshot, the selected image is c1100-universalk9_ias.16.09.05.SPA.bin. Its name corresponds to the C1100 software family; use the file actually present on the device, not an image name copied from another model. The command prefix usb0: is the device name visible for this captured session. Other routers may expose usbflash0: or other names.
 
-A progress line of C characters indicates an ongoing copy operation; it is not a completed-transfer confirmation. Before relying on any backup, an operator should verify file presence and consistency using an approved method and record final command success.`
+A progress line of C characters indicates an ongoing copy operation; it is not a completed-transfer confirmation. Before relying on any backup, an operator should verify file presence and consistency using an approved method and record final command success.
 
 Screenshot — Step 10
 
@@ -372,7 +372,7 @@ Router(config)# crypto key zeroize pubkey-chain
 Router(config)# crypto key zeroize rsa
 Technical explanation. configure terminal enters global configuration mode. The help form crypto key zeroize ? displays the key categories supported by the currently running software. The captured options include EC (elliptic-curve), a cached public-key chain, and RSA.
 
-zeroize directs the platform to remove applicable stored key material. This is a consequential operation: removing device keys may invalidate certificates and break services that depend on them. A successful key removal should be assessed using the supported feature-specific verification process. It is not the same as validating every credential store, software trust anchor, module, or license state.`
+zeroize directs the platform to remove applicable stored key material. This is a consequential operation: removing device keys may invalidate certificates and break services that depend on them. A successful key removal should be assessed using the supported feature-specific verification process. It is not the same as validating every credential store, software trust anchor, module, or license state.
 
 Screenshot — Step 11
 
@@ -398,7 +398,7 @@ Router(config)# config-register 0x2102
 Router(config)# end
 Technical explanation. Where supported, vtp domain null assigns a VTP administrative domain value. VTP (VLAN Trunking Protocol) is a Cisco technology related to distribution of VLAN information between participating switches; the domain is not a generic password or encryption key.
 
-config-register 0x2102 commonly restores the normal behavior of loading a saved startup configuration on future boots. This differs from the recovery setting in Step 1, which was intended to bypass it. The precise effect can be platform and ROMMON dependent, so verification matters.`
+config-register 0x2102 commonly restores the normal behavior of loading a saved startup configuration on future boots. This differs from the recovery setting in Step 1, which was intended to bypass it. The precise effect can be platform and ROMMON dependent, so verification matters.
 
 Screenshot — Step 12
 
@@ -422,7 +422,7 @@ Router# erase /all nvram:
 Router# erase startup-config
 Technical explanation. NVRAM is nonvolatile storage historically used to retain configuration across reboots. erase startup-config removes the saved configuration, while erase /all nvram: requests a broader NVRAM-file erase on supported platforms. Cisco displays confirmation prompts because the device's next-boot behavior can change.
 
-These operations are destructive and their exact scope depends on the hardware/software implementation. A completion message for NVRAM is meaningful evidence that the command completed, but it does not establish the status of all persistent storage, including other flash partitions, embedded wireless modules, certificates, or customer data stored elsewhere.`
+These operations are destructive and their exact scope depends on the hardware/software implementation. A completion message for NVRAM is meaningful evidence that the command completed, but it does not establish the status of all persistent storage, including other flash partitions, embedded wireless modules, certificates, or customer data stored elsewhere.
 
 Screenshot — Step 13
 
@@ -447,7 +447,7 @@ Router# format bootflash:
 Router# dir bootflash:
 Technical explanation. format ? displays the file systems that the command may accept on this software build. format bootflash: acts on the router's boot storage; this can remove the installed IOS XE image and make subsequent startup dependent on a valid external image and correct boot configuration. dir bootflash: then lists reported contents after the operation.
 
-Formatting a file system, deleting files, and performing a forensically validated secure erase are not interchangeable. A format-completion message does not by itself prove that all original bytes became unrecoverable, and some system-generated directories may reappear.`
+Formatting a file system, deleting files, and performing a forensically validated secure erase are not interchangeable. A format-completion message does not by itself prove that all original bytes became unrecoverable, and some system-generated directories may reappear.
 
 Screenshot — Step 14
 
@@ -472,7 +472,7 @@ Source filename []? c1100-universalk9_ias.16.09.05.SPA.bin
 Destination filename [c1100-universalk9_ias.16.09.05.SPA.bin]?
 Technical explanation. copy usb0: bootflash: reverses the earlier copy direction and places a selected file from the USB device into bootflash. The exact filename must correspond to the correct router platform and intended image release.
 
-Successful file transfer, successful image integrity validation, correct boot-variable configuration, and a successful post-restart IOS boot are separate checkpoints. Restoring a .bin file to bootflash is an important part of firmware restoration, but it is not enough on its own to prove a fully recovered operational system.`
+Successful file transfer, successful image integrity validation, correct boot-variable configuration, and a successful post-restart IOS boot are separate checkpoints. Restoring a .bin file to bootflash is an important part of firmware restoration, but it is not enough on its own to prove a fully recovered operational system.
 
 Screenshot — Step 15
 
@@ -495,7 +495,7 @@ Commands visible in or associated with this capture
 Router# dir all
 Technical explanation. A post-operation dir all provides another look at available filesystems and reported entries. It can help an operator identify unexpected configuration files or image-storage changes. The same output must be interpreted with care: transient system locations and automatically generated files can exist on an otherwise correctly initialized device.
 
-A directory listing is a useful observation, not a standalone sanitization certificate. Directory enumeration cannot reliably describe deleted data remnants in every type of media, and the supplied capture does not include the entire command output.`
+A directory listing is a useful observation, not a standalone sanitization certificate. Directory enumeration cannot reliably describe deleted data remnants in every type of media, and the supplied capture does not include the entire command output.
 
 Screenshot — Step 16
 
@@ -518,7 +518,7 @@ Commands visible in or associated with this capture
 Router# show vlan
 Technical explanation. show vlan reports VLAN IDs, names, states, and—in applicable switching environments—associated ports. The screenshot contains the common default VLAN 1 and the legacy default VLAN IDs 1002–1005.
 
-Default VLAN entries are normal on many Cisco switching platforms. Their presence does not automatically mean a customer configuration survived. Conversely, not seeing a custom VLAN in one listing does not independently prove that every switching database or other attached module was wiped.`
+Default VLAN entries are normal on many Cisco switching platforms. Their presence does not automatically mean a customer configuration survived. Conversely, not seeing a custom VLAN in one listing does not independently prove that every switching database or other attached module was wiped.
 
 Screenshot — Step 17
 
@@ -542,7 +542,7 @@ Router# show platform
 Router# reload
 Technical explanation. show platform again inventories the reported component states, providing a comparison with Step 4. reload initiates the router's restart sequence, ordinarily followed by a confirmation prompt. Merely entering the command does not prove that the router rebooted successfully.
 
-The embedded ISR-AP1100AC-B remains visible in the screenshot. Because the module can have its own storage and configuration, successful host-router maintenance does not establish a successful independent AP reset.`
+The embedded ISR-AP1100AC-B remains visible in the screenshot. Because the module can have its own storage and configuration, successful host-router maintenance does not establish a successful independent AP reset.
 
 Screenshot — Step 18
 
@@ -565,7 +565,7 @@ Commands visible in or associated with this capture
 rommon 1 > set
 Technical explanation. The ROMMON set command prints environment variables used or retained by the boot monitor. Such entries may include boot-related controls and generated numeric values. ROMMON state is distinct from the running IOS XE configuration and deserves its own review when the authorized process requires it.
 
-Environment variables should be interpreted using the correct platform guidance. Some values are normal system state, and not every numeric value is a customer identifier; indiscriminate changes can affect bootability.`
+Environment variables should be interpreted using the correct platform guidance. Some values are normal system state, and not every numeric value is a customer identifier; indiscriminate changes can affect bootability.
 
 Screenshot — Step 19
 
