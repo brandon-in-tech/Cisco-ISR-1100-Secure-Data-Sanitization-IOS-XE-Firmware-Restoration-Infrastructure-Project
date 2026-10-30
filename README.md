@@ -1,9 +1,13 @@
 <p align="center">
   <img src="assets/brandons-logo.png" alt="IT Professional logo" width="170">
-</p><h1 align="center">Cisco ISR 1100 — Secure Data Sanitization &amp; IOS XE Firmware Restoration</h1><p align="center"><strong>Enterprise Network Infrastructure | Cisco C1111-8PWB | IOS XE 16.09.05</strong></p><p align="center">ROMMON · Key Maintenance · Configuration Erasure · Bootflash · USB Firmware Recovery · Infrastructure Validation</p>Project Summary
+</p><h1 align="center">Cisco ISR 1100 — Secure Data Sanitization &amp; IOS XE Firmware Restoration</h1><p align="center"><strong>Enterprise Network Infrastructure | Cisco C1111-8PWB | IOS XE 16.09.05</strong></p><p align="center">ROMMON · Key Maintenance · Configuration Erasure · Bootflash · USB Firmware Recovery · Infrastructure Validation</p><p align="center">
+  <img src="evidence/router.png" alt="Cisco ISR 1100 Series router — front chassis view" width="48%">
+  <img src="evidence/router-back.png" alt="Cisco ISR 1100 Series router — rear interface panel" width="48%">
+</p>
+<p align="center"><sub><strong>Hardware overview:</strong> Front chassis (left) · Rear interface panel (right)</sub></p>Project Summary
 This project documents infrastructure maintenance performed on a Cisco ISR 1100 (C1111-8PWB). The work spans device identification, ROMMON and boot settings, interface and route inspection, cryptographic-key handling, configuration and persistent-storage maintenance, and IOS XE image preservation and restoration operations.
 
-The technical record consists of 19 redacted console captures, organized by execution stage. Each image appears inline with the corresponding commands, interpretation, and verification criteria. This is a record of observed operations; where the screenshots do not establish a completed end state, that distinction is noted.
+The technical record includes 19 redacted console captures and two router hardware photographs, organized by execution stage. Each image appears inline with the corresponding commands, interpretation, and verification criteria. This is a record of observed operations; where the screenshots do not establish a completed end state, that distinction is noted.
 Platform	Software	Access	Firmware / Storage	Evidence
 Cisco C1111-8PWB	IOS XE 16.09.05	Serial console / ROMMON	bootflash: and usb0:	19 console captures
 
@@ -666,11 +670,13 @@ Cisco-ISR-1100-Secure-Data-Sanitization-IOS-XE-Firmware-Restoration/
 │   ├── brandons-logo.png
 │   └── footer-logo.png
 └── evidence/
+    ├── router.png
+    ├── router-back.png
     ├── step1.png
     ├── step2.png
     ├── ...
     └── step19.png
-Every console capture is embedded in its corresponding procedure section. The assets/ directory contains the project header and footer branding.
+Both hardware photographs appear in the project header, and every console capture is embedded in its corresponding procedure section. The assets/ directory contains the project header and footer branding.
 
 ↑ Back to Table of Contents
 
