@@ -60,7 +60,7 @@ rommon 1 > confreg 0x2142
 rommon 2 > reset
 ```
 
-Set the recovery register to bypass the saved startup configuration and restarted the router from ROMMON. This changes boot behavior; it does not erase the saved configuration.
+`confreg 0x2142` set a recovery boot mode that bypasses the saved startup configuration. `reset` restarted the router with that setting. **This bypass does not erase the stored configuration.**
 
 <p align="center">
   <img src="evidence/step1.png" alt="Cisco ISR 1100 — Step 01 console evidence" width="920">
@@ -78,7 +78,7 @@ Router# terminal length 0
 Router# show version
 ```
 
-Identified the C1111 platform and IOS XE 16.09.05. Disabled terminal pagination to capture the diagnostic output.
+`terminal length 0` disabled output pagination so the full results could be captured. `show version` identified the router model, IOS XE release, and boot information.
 
 <p align="center">
   <img src="evidence/step2.png" alt="Cisco ISR 1100 — Step 02 console evidence" width="920">
@@ -95,7 +95,7 @@ Identified the C1111 platform and IOS XE 16.09.05. Disabled terminal pagination 
 Router# show inventory
 ```
 
-Reviewed chassis and installed component records, including product identifiers. Unique hardware identifiers are redacted in the evidence.
+`show inventory` identified the chassis and installed hardware by product and component records. Unique identifiers were redacted from the screenshot.
 
 <p align="center">
   <img src="evidence/step3.png" alt="Cisco ISR 1100 — Step 03 console evidence" width="920">
@@ -112,7 +112,7 @@ Reviewed chassis and installed component records, including product identifiers.
 Router# show platform
 ```
 
-Checked reported module states and identified the embedded ISR-AP1100AC-B wireless module. Its presence does not establish that the module was separately reset.
+`show platform` displayed the operating state of installed modules, including the embedded wireless module, to establish a hardware baseline.
 
 <p align="center">
   <img src="evidence/step4.png" alt="Cisco ISR 1100 — Step 04 console evidence" width="920">
@@ -129,7 +129,7 @@ Checked reported module states and identified the embedded ISR-AP1100AC-B wirele
 Router# show ip interface brief
 ```
 
-Reviewed interface addresses and administrative and protocol states. Most visible Ethernet interfaces are unassigned/down; an `up/up` status alone does not confirm network reachability.
+`show ip interface brief` provided a quick view of interface IP addresses, administrative status, and protocol state before maintenance.
 
 <p align="center">
   <img src="evidence/step5.png" alt="Cisco ISR 1100 — Step 05 console evidence" width="920">
@@ -146,7 +146,7 @@ Reviewed interface addresses and administrative and protocol states. Most visibl
 Router# show interfaces
 ```
 
-Inspected link status, MTU, interface counters, and error statistics. Hardware addresses were masked in the screenshot.
+`show interfaces` supplied detailed link statistics, including port states, traffic counters, and errors, to assess interface condition.
 
 <p align="center">
   <img src="evidence/step6.png" alt="Cisco ISR 1100 — Step 06 console evidence" width="920">
@@ -163,7 +163,7 @@ Inspected link status, MTU, interface counters, and error statistics. Hardware a
 Router# show ip route
 ```
 
-Checked the active routing table. The captured output reports no gateway of last resort; this is a point-in-time routing observation.
+`show ip route` checked active IPv4 routes and the default-gateway state before configuration removal. No gateway of last resort was shown in the capture.
 
 <p align="center">
   <img src="evidence/step7.png" alt="Cisco ISR 1100 — Step 07 console evidence" width="920">
@@ -180,7 +180,7 @@ Checked the active routing table. The captured output reports no gateway of last
 Router# show running-config
 ```
 
-Reviewed the active configuration. The screenshot contains only a portion of the output; the running and saved startup configurations are separate.
+`show running-config` reviewed the active IOS XE configuration before cleanup. The running configuration is distinct from the saved startup configuration.
 
 <p align="center">
   <img src="evidence/step8.png" alt="Cisco ISR 1100 — Step 08 console evidence" width="920">
@@ -197,7 +197,7 @@ Reviewed the active configuration. The screenshot contains only a portion of the
 Router# dir all
 ```
 
-Enumerated accessible filesystem entries before storage operations. The console capture shows a partial listing.
+`dir all` listed accessible filesystem entries to identify storage locations and files before image backup and formatting.
 
 <p align="center">
   <img src="evidence/step9.png" alt="Cisco ISR 1100 — Step 09 console evidence" width="920">
@@ -217,7 +217,7 @@ Source filename []? c1100-universalk9_ias.16.09.05.SPA.bin
 Destination filename [c1100-universalk9_ias.16.09.05.SPA.bin]?
 ```
 
-Selected the C1100 IOS XE image and initiated transfer from `bootflash:` to `usb0:`. Copy progress is visible, but final completion is not shown in the screenshot.
+`dir bootflash:` located the IOS XE image in internal storage. `copy bootflash: usb0:` initiated its backup to USB; the filename prompts selected the exact `.bin` file and destination name. **The screenshot shows transfer progress, not final copy verification.**
 
 <p align="center">
   <img src="evidence/step10.png" alt="Cisco ISR 1100 — Step 10 console evidence" width="920">
@@ -238,7 +238,7 @@ Router(config)# crypto key zeroize pubkey-chain
 Router(config)# crypto key zeroize rsa
 ```
 
-Reviewed supported key categories and executed the recorded EC, public-key-chain, and RSA zeroization commands. These operations do not independently verify every credential store.
+`configure terminal` entered configuration mode; `crypto key zeroize ?` displayed the available key categories. `crypto key zeroize ec`, `crypto key zeroize pubkey-chain`, and `crypto key zeroize rsa` targeted the recorded EC, public-key-chain, and RSA key material respectively.
 
 <p align="center">
   <img src="evidence/step11.png" alt="Cisco ISR 1100 — Step 11 console evidence" width="920">
@@ -258,7 +258,7 @@ Router(config)# config-register 0x2102
 Router(config)# end
 ```
 
-Changed the VTP domain setting and restored the normal configuration-register value for subsequent boots.
+`configure terminal` entered configuration mode. `vtp domain null` set the VTP domain value shown in the session; `config-register 0x2102` restored the normal boot-register setting; `end` returned to privileged EXEC mode.
 
 <p align="center">
   <img src="evidence/step12.png" alt="Cisco ISR 1100 — Step 12 console evidence" width="920">
@@ -276,7 +276,7 @@ Router# erase /all nvram:
 Router# erase startup-config
 ```
 
-Removed the selected nonvolatile configuration data. Completion messages for these commands are visible in the console evidence.
+`erase /all nvram:` targeted the nonvolatile filesystem contents. `erase startup-config` separately removed the saved startup configuration so it would not be loaded at the next normal boot.
 
 <p align="center">
   <img src="evidence/step13.png" alt="Cisco ISR 1100 — Step 13 console evidence" width="920">
@@ -295,7 +295,7 @@ Router# format bootflash:
 Router# dir bootflash:
 ```
 
-Formatted `bootflash:` and inspected the resulting directory. The format operation completed, but formatting alone is not proof of forensic data sanitization.
+`format ?` checked supported formatting targets. `format bootflash:` reinitialized internal flash storage; `dir bootflash:` inspected the resulting directory. **Formatting alone does not establish forensic sanitization.**
 
 <p align="center">
   <img src="evidence/step14.png" alt="Cisco ISR 1100 — Step 14 console evidence" width="920">
@@ -314,7 +314,7 @@ Source filename []? c1100-universalk9_ias.16.09.05.SPA.bin
 Destination filename [c1100-universalk9_ias.16.09.05.SPA.bin]?
 ```
 
-Initiated the return transfer of the IOS XE image from USB to internal storage. The screenshot shows progress but not final copy confirmation or a subsequent successful boot.
+`copy usb0: bootflash:` initiated restoring the IOS XE image from USB to internal flash. The source and destination filename prompts identified the image being copied. **Transfer completion and a successful subsequent boot are not shown.**
 
 <p align="center">
   <img src="evidence/step15.png" alt="Cisco ISR 1100 — Step 15 console evidence" width="920">
@@ -331,7 +331,7 @@ Initiated the return transfer of the IOS XE image from USB to internal storage. 
 Router# dir all
 ```
 
-Inspected reported filesystem entries after maintenance. The captured output is a partial listing and does not establish full-media sanitization.
+`dir all` rechecked accessible filesystem entries after the storage and image operations to assess the visible post-maintenance state.
 
 <p align="center">
   <img src="evidence/step16.png" alt="Cisco ISR 1100 — Step 16 console evidence" width="920">
@@ -348,7 +348,7 @@ Inspected reported filesystem entries after maintenance. The captured output is 
 Router# show vlan
 ```
 
-Reviewed the reported VLAN state. Default VLAN entries are visible, with no additional production VLAN names shown in this capture.
+`show vlan` reviewed the VLAN entries reported after configuration cleanup, including the default VLANs visible in the capture.
 
 <p align="center">
   <img src="evidence/step17.png" alt="Cisco ISR 1100 — Step 17 console evidence" width="920">
@@ -366,7 +366,7 @@ Router# show platform
 Router# reload
 ```
 
-Rechecked installed hardware and issued a reload request. The screenshot does not show the full restart or verified IOS XE startup.
+`show platform` rechecked module state after maintenance. `reload` requested a restart so the router could boot with its current storage and boot settings; successful startup is not shown in the screenshot.
 
 <p align="center">
   <img src="evidence/step18.png" alt="Cisco ISR 1100 — Step 18 console evidence" width="920">
@@ -383,7 +383,7 @@ Rechecked installed hardware and issued a reload request. The screenshot does no
 rommon 1 > set
 ```
 
-Inspected ROMMON environment variables and boot-related state. The capture does not document a final successful post-maintenance IOS XE boot.
+`set` displayed the ROMMON environment variables to inspect boot-related settings after the reload sequence. This capture does not establish a successful final IOS XE boot.
 
 <p align="center">
   <img src="evidence/step19.png" alt="Cisco ISR 1100 — Step 19 console evidence" width="920">
