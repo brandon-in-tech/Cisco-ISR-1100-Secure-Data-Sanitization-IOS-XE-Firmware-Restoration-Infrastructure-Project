@@ -2,7 +2,7 @@
   <img src="assets/brandons-logo.png" alt="Brandon IT Professional logo" width="155">
 </p>
 
-<h1 align="center">Cisco ISR 1100 — Secure Data Sanitization &amp; IOS XE Firmware Restoration</h1>
+<h1 align="center">Cisco ISR 1100 — Secure Data Sanitization &amp; IOS XE Firmware Restoration Infrastructure Project</h1>
 
 <p align="center"><strong>Cisco C1111-8PWB · IOS XE 16.09.05 · Enterprise Network Infrastructure</strong></p>
 
