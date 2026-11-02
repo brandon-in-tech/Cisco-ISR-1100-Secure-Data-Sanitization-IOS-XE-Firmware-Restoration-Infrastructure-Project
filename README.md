@@ -16,6 +16,12 @@
 
 This project documents Cisco ISR 1100 maintenance involving **ROMMON recovery, IOS XE image backup and restoration, cryptographic-key handling, configuration removal, storage maintenance, and device diagnostics**. The sequence is supported by 19 redacted console screenshots.
 
+<p align="center">
+  <img src="assets/flowchart.png" alt="Cisco ISR 1100 ROMMON recovery, configuration sanitization, IOS XE backup and restoration workflow" width="100%">
+</p>
+
+<p align="center"><em>High-level workflow of the documented Cisco ISR 1100 maintenance procedure, from ROMMON access through post-operation inspection.</em></p>
+
 | Hardware | Operating system | Access | Storage |
 |---|---|---|---|
 | Cisco C1111-8PWB | IOS XE 16.09.05 | Serial console / ROMMON | `bootflash:` · `usb0:` |
@@ -408,6 +414,7 @@ README.md
 assets/
   brandons-logo.png
   footer-logo.png
+  flowchart.png
 evidence/
   router.png
   router-back.png
