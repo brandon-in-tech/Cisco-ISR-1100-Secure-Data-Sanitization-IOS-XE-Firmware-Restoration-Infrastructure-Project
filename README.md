@@ -12,6 +12,35 @@
 </p>
 <p align="center"><sub>Front and rear views of the Cisco ISR 1100</sub></p>
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Maintenance Procedure](#maintenance-procedure)
+  - [Step 01 — ROMMON configuration register](#step-01)
+  - [Step 02 — IOS XE version verification](#step-02)
+  - [Step 03 — Hardware inventory](#step-03)
+  - [Step 04 — Platform and wireless module inspection](#step-04)
+  - [Step 05 — Interface status](#step-05)
+  - [Step 06 — Ethernet diagnostics](#step-06)
+  - [Step 07 — IPv4 routing table](#step-07)
+  - [Step 08 — Running configuration](#step-08)
+  - [Step 09 — Filesystem inventory](#step-09)
+  - [Step 10 — IOS XE image backup to USB](#step-10)
+  - [Step 11 — Cryptographic key maintenance](#step-11)
+  - [Step 12 — VTP and boot-register configuration](#step-12)
+  - [Step 13 — NVRAM and startup-config removal](#step-13)
+  - [Step 14 — Bootflash formatting](#step-14)
+  - [Step 15 — IOS XE image restoration](#step-15)
+  - [Step 16 — Post-operation filesystem review](#step-16)
+  - [Step 17 — VLAN inspection](#step-17)
+  - [Step 18 — Module review and reload](#step-18)
+  - [Step 19 — ROMMON environment review](#step-19)
+- [Results and Verification](#results-and-verification)
+- [Repository Structure](#repository-structure)
+
+---
+
+
 ## Overview
 
 This project documents Cisco ISR 1100 maintenance involving **ROMMON recovery, IOS XE image backup and restoration, cryptographic-key handling, configuration removal, storage maintenance, and device diagnostics**. The sequence is supported by 19 redacted console screenshots.
@@ -80,33 +109,6 @@ flowchart TD
 ```
 
 
-## Table of Contents
-
-- [Overview](#overview)
-- [Maintenance Procedure](#maintenance-procedure)
-  - [Step 01 — ROMMON configuration register](#step-01)
-  - [Step 02 — IOS XE version verification](#step-02)
-  - [Step 03 — Hardware inventory](#step-03)
-  - [Step 04 — Platform and wireless module inspection](#step-04)
-  - [Step 05 — Interface status](#step-05)
-  - [Step 06 — Ethernet diagnostics](#step-06)
-  - [Step 07 — IPv4 routing table](#step-07)
-  - [Step 08 — Running configuration](#step-08)
-  - [Step 09 — Filesystem inventory](#step-09)
-  - [Step 10 — IOS XE image backup to USB](#step-10)
-  - [Step 11 — Cryptographic key maintenance](#step-11)
-  - [Step 12 — VTP and boot-register configuration](#step-12)
-  - [Step 13 — NVRAM and startup-config removal](#step-13)
-  - [Step 14 — Bootflash formatting](#step-14)
-  - [Step 15 — IOS XE image restoration](#step-15)
-  - [Step 16 — Post-operation filesystem review](#step-16)
-  - [Step 17 — VLAN inspection](#step-17)
-  - [Step 18 — Module review and reload](#step-18)
-  - [Step 19 — ROMMON environment review](#step-19)
-- [Results and Verification](#results-and-verification)
-- [Repository Structure](#repository-structure)
-
----
 
 ## Maintenance Procedure
 
