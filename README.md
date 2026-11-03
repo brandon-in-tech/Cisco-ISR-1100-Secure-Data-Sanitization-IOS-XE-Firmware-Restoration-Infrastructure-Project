@@ -26,6 +26,60 @@ This project documents Cisco ISR 1100 maintenance involving **ROMMON recovery, I
 |---|---|---|---|
 | Cisco C1111-8PWB | IOS XE 16.09.05 | Serial console / ROMMON | `bootflash:` · `usb0:` |
 
+
+## Infrastructure Maintenance Workflow
+
+```mermaid
+flowchart TD
+    A["Physical Cisco ISR 1100 - C1111-8PWB"]
+    B["Serial Console and ROMMON Access"]
+    C["Configure Recovery Boot Register - 0x2142"]
+    D["Verify IOS XE Version and Hardware Inventory"]
+    E["Inspect Interfaces, Routing and Platform Status"]
+    F["Review Running Configuration and Filesystems"]
+    G["Initiate IOS XE Image Backup to USB"]
+    H["Perform Cryptographic Key Zeroization"]
+    I["Configure VTP Domain and Boot Register - 0x2102"]
+    J["Erase NVRAM and Startup Configuration"]
+    K["Format Internal Bootflash Storage"]
+    L["Initiate IOS XE Image Transfer from USB"]
+    M["Inspect Post-Maintenance Filesystem"]
+    N["Review VLANs and Hardware Module Status"]
+    O["Initiate Router Reload"]
+    P["Inspect ROMMON Environment Variables"]
+    Q["Document Results and Verification Limitations"]
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+    H --> I
+    I --> J
+    J --> K
+    K --> L
+    L --> M
+    M --> N
+    N --> O
+    O --> P
+    P --> Q
+
+    classDef hardware fill:#073B70,color:#ffffff,stroke:#007CC3,stroke-width:2px
+    classDef inspection fill:#E8F4FD,color:#082D50,stroke:#007CC3,stroke-width:1px
+    classDef maintenance fill:#FFF3E2,color:#754600,stroke:#D89632,stroke-width:1px
+    classDef validation fill:#E8F5F1,color:#115846,stroke:#259B78,stroke-width:1px
+    classDef complete fill:#073B70,color:#ffffff,stroke:#259B78,stroke-width:2px
+
+    class A hardware
+    class B,C,D,E,F inspection
+    class G,H,I,J,K,L maintenance
+    class M,N,O,P validation
+    class Q complete
+```
+
+
 ## Table of Contents
 
 - [Overview](#overview)
